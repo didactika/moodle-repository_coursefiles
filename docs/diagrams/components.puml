@@ -1,0 +1,14 @@
+@startuml
+!include _style.puml
+title Native picker component contract
+left to right direction
+component "Moodle native file picker" as Picker
+component repository_coursebridge as Repository
+component "local_coursebridge\nauthorized catalog and copy policy" as Local
+component "Core repository / draft copier" as Draft
+Picker --> Repository
+Repository --> Local
+Repository --> Draft
+Local -[hidden]down-> Draft
+note bottom of Repository : Search presentation is a theme-overridable component template.
+@enduml
