@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Materials from related courses';
+$string['configplugin'] = 'CourseBridge repository configuration';
 $string['searchhelp'] = 'Find a file, narrow the results and choose its source edition.';
 $string['coursebridge'] = 'Related course materials';
 $string['coursebridge:view'] = 'Use the CourseBridge repository';
