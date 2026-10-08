@@ -235,13 +235,20 @@ class repository_coursebridge extends repository {
         $record = (array)$filerecord;
         $record['author'] = $file->get_author();
         $record['license'] = $file->get_license();
-        $attributionid = \local_coursebridge\local\author_policy::capture($file);
-        $record['source'] = json_encode(['coursebridge' => $DB->get_field(
-            'local_coursebridge_attribution',
-            'uuid',
-            ['id' => $attributionid]
-        )]);
-        return parent::copy_to_area($source, $record, $maxbytes, $areamaxbytes);
+        $transaction = $DB->start_delegated_transaction();
+        try {
+            $attributionid = \local_coursebridge\local\author_policy::capture($file);
+            $record['source'] = serialize((object)['source' => json_encode(['coursebridge' => $DB->get_field(
+                'local_coursebridge_attribution',
+                'uuid',
+                ['id' => $attributionid]
+            )])]);
+            $result = parent::copy_to_area($source, $record, $maxbytes, $areamaxbytes);
+            $transaction->allow_commit();
+            return $result;
+        } catch (\Throwable $exception) {
+            $transaction->rollback($exception);
+        }
     }
 
     /**

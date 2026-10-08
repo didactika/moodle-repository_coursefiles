@@ -1,0 +1,25 @@
+@startuml
+!include ../_style.puml
+skinparam maxMessageSize 190
+title Native save and editable author metadata
+actor Teacher
+participant "Repository\ncopy_to_area" as Repository
+participant "Native draft\nFile API" as Draft
+participant "Course folder\nFile API" as Folder
+database "Original\nattribution" as Attribution
+Teacher -> Repository : Select and copy under editable policy
+Repository -> Attribution : Capture original author / licence
+Repository -> Draft : Copy with serialized source marker
+Teacher -> Draft : Save the editing form
+Draft -> Folder : Save author, licence and inner source
+Teacher -> Folder : Reopen existing materials
+Folder -> Draft : Prepare draft with ID = 0
+Teacher -> Draft : Rename / change current author and licence
+Draft -> Folder : Save current values and retained marker
+note over Folder, Attribution
+Current file values may change.
+Captured original declaration stays unchanged.
+This is not a strict author lock.
+end note
+@enduml
+

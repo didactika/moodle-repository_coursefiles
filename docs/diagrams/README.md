@@ -4,6 +4,7 @@ Each source has a sibling SVG preview. Views are grouped by responsibility and d
 
 | Diagram | Source | Preview |
 |---|---|---|
+| sequences/native-save-and-edit.puml | [Source](sequences/native-save-and-edit.puml) | [SVG](sequences/native-save-and-edit.svg) |
 | analysis-classes.puml | [Source](analysis-classes.puml) | [SVG](analysis-classes.svg) |
 | components.puml | [Source](components.puml) | [SVG](components.svg) |
 | design-classes.puml | [Source](design-classes.puml) | [SVG](design-classes.svg) |

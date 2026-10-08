@@ -18,4 +18,10 @@ repository_coursebridge extends Moodle's `repository` class and supports `FILE_I
 
 `copy_to_area()` revalidates immediately before copying, preserves initial source author/license, captures original attribution and calls the core draft copier. Caller-submitted author values do not override the source declaration. Full later native editor protection is not provided by the repository alone.
 
+Capture and core copy share a delegated database transaction. A core size-limit rejection rolls back the attribution and database file records. Draft source metadata uses Moodle's serialized object with an inner JSON source; native save extracts that source. It retains the attribution UUID after reopening and renaming in the tested editable workflow.
+
+![Native save and editable metadata](diagrams/sequences/native-save-and-edit.svg)
+
+Later native author/licence changes remain possible after an editable-policy copy; the captured original declaration stays unchanged. The source marker is not an authorization token. An effective strict policy refuses CourseBridge copying, including policy changes between selection and copy; it does not retroactively freeze files already copied under an editable policy.
+
 This plugin has no XMLDB installation tables. The Privacy provider declares linked core file/local-plugin ownership. Business-table access is confined to discovery/lookup contracts; copying never manipulates physical content storage.

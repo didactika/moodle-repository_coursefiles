@@ -30,6 +30,94 @@ namespace repository_coursebridge;
  */
 final class repository_test extends \advanced_testcase {
     /**
+     * Native save keeps provenance; later native edits can change current metadata.
+     */
+    public function test_native_save_and_later_edit_preserve_original_provenance(): void {
+        global $DB, $USER;
+        [$repository, $token, $target] = $this->fixture();
+        set_config('author_policy', 'editable_with_provenance', 'local_coursebridge');
+        $draftid = file_get_unused_draft_itemid();
+        $reference = $repository->get_file_reference($token);
+        $repository->copy_to_area($reference, [
+            'itemid' => $draftid, 'filepath' => '/', 'filename' => 'lesson.txt',
+        ]);
+        $fs = get_file_storage();
+        $draft = $fs->get_file(\context_user::instance($USER->id)->id, 'user', 'draft', $draftid, '/', 'lesson.txt');
+        $draftsource = unserialize_object($draft->get_source());
+        $this->assertIsObject($draftsource);
+        $attributionuuid = json_decode($draftsource->source, true)['coursebridge'];
+        $folder = $this->getDataGenerator()->create_module('folder', ['course' => $target->id]);
+        $context = \context_module::instance($folder->cmid);
+        file_save_draft_area_files($draftid, $context->id, 'mod_folder', 'content', 0, ['subdirs' => true]);
+        $saved = $fs->get_file($context->id, 'mod_folder', 'content', 0, '/', 'lesson.txt');
+        $this->assertSame('Material author', $saved->get_author());
+        $this->assertSame($attributionuuid, json_decode($saved->get_source(), true)['coursebridge']);
+        $editdraft = 0;
+        file_prepare_draft_area($editdraft, $context->id, 'mod_folder', 'content', 0, ['subdirs' => true]);
+        \repository::update_draftfile($editdraft, '/', 'lesson.txt', [
+            'filename' => 'renamed-lesson.txt', 'author' => 'Later editor', 'license' => 'allrightsreserved',
+        ]);
+        file_save_draft_area_files($editdraft, $context->id, 'mod_folder', 'content', 0, ['subdirs' => true]);
+        $saved = $fs->get_file($context->id, 'mod_folder', 'content', 0, '/', 'renamed-lesson.txt');
+        $this->assertSame('Later editor', $saved->get_author());
+        $this->assertSame('allrightsreserved', $saved->get_license());
+        $attribution = $DB->get_record('local_coursebridge_attribution', ['uuid' => $attributionuuid], '*', MUST_EXIST);
+        $this->assertSame('Material author', $attribution->author);
+        $this->assertSame('cc', $attribution->license);
+        $this->assertSame($attributionuuid, json_decode($saved->get_source(), true)['coursebridge']);
+    }
+
+    /**
+     * A core file-size rejection must not leave a successful-copy provenance record.
+     */
+    public function test_failed_draft_copy_rolls_back_attribution(): void {
+        global $DB, $USER;
+        [$repository, $token] = $this->fixture();
+        $this->preventResetByRollback();
+        set_config('author_policy', 'editable_with_provenance', 'local_coursebridge');
+        $reference = $repository->get_file_reference($token);
+        $draftid = file_get_unused_draft_itemid();
+        $before = $DB->count_records('local_coursebridge_attribution');
+        try {
+            $repository->copy_to_area($reference, [
+                'itemid' => $draftid, 'filepath' => '/', 'filename' => 'lesson.txt',
+            ], 1);
+            $this->fail('Core must reject this file-size limit.');
+        } catch (\file_exception $exception) {
+            $this->assertSame('maxbytesfile', $exception->errorcode);
+        }
+        $this->assertSame($before, $DB->count_records('local_coursebridge_attribution'));
+        $this->assertFalse(get_file_storage()->get_file(
+            \context_user::instance($USER->id)->id,
+            'user',
+            'draft',
+            $draftid,
+            '/',
+            'lesson.txt'
+        ));
+    }
+
+    /**
+     * Policy changes after selection are checked again before draft creation.
+     */
+    public function test_policy_change_after_selection_blocks_copy(): void {
+        global $DB;
+        [$repository, $token] = $this->fixture();
+        set_config('author_policy', 'editable_with_provenance', 'local_coursebridge');
+        $reference = $repository->get_file_reference($token);
+        set_config('author_policy', 'preserve_locked', 'local_coursebridge');
+        try {
+            $repository->copy_to_area($reference, [
+                'itemid' => file_get_unused_draft_itemid(), 'filepath' => '/', 'filename' => 'lesson.txt',
+            ]);
+            $this->fail('An effective lock must refuse the copy.');
+        } catch (\moodle_exception $exception) {
+            $this->assertSame('lockedunsupported', $exception->errorcode);
+        }
+        $this->assertSame(0, $DB->count_records('local_coursebridge_attribution'));
+    }
+
+    /**
      * Create a native repository with one permitted source.
      *
      * @return array Repository, source token and target.
@@ -116,7 +204,7 @@ final class repository_test extends \advanced_testcase {
     }
 
     /**
-     * Arbitrary native references cannot replace the signed occurrence token.
+     * Arbitrary native references cannot replace the authorized occurrence token.
      */
     public function test_malformed_source_is_rejected(): void {
         [$repository] = $this->fixture();
