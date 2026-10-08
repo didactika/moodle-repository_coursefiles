@@ -1,41 +1,42 @@
 {{!
     @template repository_coursebridge/local/picker/search_form
-    Native picker search fields; core owns the surrounding form and submit button.
+    Native picker search fields and submit button; core owns the surrounding form.
     Context: id, profiles, filetypes, modules.
     Example context (json): {"id":"cb-repository-1","profiles":[],"filetypes":[],"modules":[]}
 }}
-<div class="fp-def-search coursebridge-search" data-region="coursebridge-search">
+<div class="fp-def-search coursebridge-search w-100 float-none mx-0" data-region="coursebridge-search">
     <p class="text-muted">{{#str}}searchhelp, repository_coursebridge{{/str}}</p>
-    <div class="row">
-        <div class="col-md-6 mb-3">
+    <div class="row d-flex float-none mx-0">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-profile">{{#str}}profile, repository_coursebridge{{/str}}</label>
             <select class="form-control" name="cbprofile" id="{{id}}-profile">{{#profiles}}
                 <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
             {{/profiles}}</select>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-search">{{#str}}s, repository_coursebridge{{/str}}</label>
             <input class="form-control" name="s" id="{{id}}-search" type="search">
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-edition">{{#str}}cbedition, repository_coursebridge{{/str}}</label>
             <input class="form-control" name="cbedition" id="{{id}}-edition">
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-course">{{#str}}cbshortname, repository_coursebridge{{/str}}</label>
             <input class="form-control" name="cbshortname" id="{{id}}-course">
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-module">{{#str}}cbmodule, repository_coursebridge{{/str}}</label>
             <select class="form-control" name="cbmodule" id="{{id}}-module">{{#modules}}
                 <option value="{{value}}">{{label}}</option>
             {{/modules}}</select>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-type">{{#str}}cbmime, repository_coursebridge{{/str}}</label>
             <select class="form-control" name="cbmime" id="{{id}}-type">{{#filetypes}}
                 <option value="{{value}}">{{label}}</option>
             {{/filetypes}}</select>
         </div>
     </div>
+    <button type="submit" class="btn btn-primary">{{#str}}search, repository{{/str}}</button>
 </div>

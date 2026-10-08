@@ -5,7 +5,7 @@ actor Teacher
 participant "Catalog / picker" as UI
 participant catalog as Catalog
 participant material_source as Source
-Teacher -> UI : Set filters
+Teacher -> UI : Set filters and submit Search / Enter
 UI -> Catalog : search(target, profile, filters, after)
 loop current candidate occurrences
   Catalog -> Source : resolve(locator, target, profile)

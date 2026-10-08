@@ -190,6 +190,7 @@ final class repository_test extends \advanced_testcase {
         $xpath = new \DOMXPath($dom);
         $controls = $xpath->query('//input | //select');
         $this->assertSame(6, $controls->length);
+        $this->assertSame(1, $xpath->query('//button[@type="submit"]')->length);
         foreach ($controls as $control) {
             $id = $control->getAttribute('id');
             $this->assertSame(1, $xpath->query('//label[@for="' . $id . '"]')->length);

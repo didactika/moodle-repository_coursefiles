@@ -1,6 +1,6 @@
 # Native picker workflow
 
-Open a course form's file picker and select **Materials from related courses**. Select the relationship profile, filename query, edition label, exact course shortname, source module or MIME type. Results are authorized in the local plugin before they appear.
+Open a course form's file picker and select **Materials from related courses**. Select the relationship profile, filename query, edition label, exact course shortname, source module or MIME type, then press **Search**. Tab follows the labelled controls in that order and reaches Search; Enter on the button submits through Moodle's native search handler. Results are authorized in the local plugin before they appear.
 
 ![Search sequence](diagrams/sequences/uc01-search-materials.svg)
 
