@@ -24,8 +24,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'repository_coursebridge';
-$plugin->version = 2026100800;
+$plugin->version = 2026100801;
 $plugin->requires = 2024100700;
-$plugin->dependencies = ['local_coursebridge' => 2026100800];
+$plugin->dependencies = ['local_coursebridge' => 2026100801];
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '0.1.0-dev';
