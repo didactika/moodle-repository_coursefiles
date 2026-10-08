@@ -30,6 +30,25 @@ namespace repository_coursebridge;
  */
 final class repository_test extends \advanced_testcase {
     /**
+     * Organized picker helpers return a selectable, authorized native listing node.
+     */
+    public function test_listing_uses_authorized_occurrence_nodes(): void {
+        [$repository, $token, $target] = $this->fixture();
+        set_config('author_policy', 'editable_with_provenance', 'local_coursebridge');
+        $locator = json_decode(base64_decode($token), true);
+        $file = get_file_storage()->get_file_by_hash($locator['pathnamehash']);
+        $sourcecourse = \context::instance_by_id($file->get_contextid())->get_course_context();
+        \local_coursebridge\local\catalog\indexer::refresh($sourcecourse->instanceid);
+        \local_coursebridge\local\catalog\indexer::refresh($target->id);
+        $listing = $repository->get_listing();
+        $this->assertCount(1, $listing['list']);
+        $node = $listing['list'][0];
+        $this->assertSame('lesson.txt', $node['title']);
+        $this->assertSame('Material author', $node['author']);
+        $this->assertTrue($repository->file_is_accessible($node['source']));
+    }
+
+    /**
      * Native save keeps provenance; later native edits can change current metadata.
      */
     public function test_native_save_and_later_edit_preserve_original_provenance(): void {
@@ -128,7 +147,7 @@ final class repository_test extends \advanced_testcase {
         $this->setAdminUser();
         require_once($CFG->dirroot . '/repository/coursebridge/lib.php');
         $config = json_decode(file_get_contents($CFG->dirroot . '/local/coursebridge/examples/institutional-profile.json'), true);
-        $profileid = \local_coursebridge\local\profiles::save(json_encode($config));
+        $profileid = \local_coursebridge\local\profile\profiles::save(json_encode($config));
         $uuid = '550e8400-e29b-41d4-a716-446655440000';
         $source = $this->getDataGenerator()->create_course(['idnumber' => $uuid . '||MATH||2025']);
         $target = $this->getDataGenerator()->create_course(['idnumber' => $uuid . '||MATH||2026']);

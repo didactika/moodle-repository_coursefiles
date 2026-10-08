@@ -21,6 +21,13 @@
  * @copyright 2026 CourseBridge contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_coursebridge\local\catalog\catalog;
+use local_coursebridge\local\catalog\material_source;
+use local_coursebridge\local\policy\author_policy;
+use local_coursebridge\output\display;
+use repository_coursebridge\local\picker\filters;
+use repository_coursebridge\output\picker;
+
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/repository/lib.php');
 
@@ -94,8 +101,8 @@ class repository_coursebridge extends repository {
             }
         }
         $profileid = (int)($state['profileid'] ?? $this->profileid());
-        $filters = $state['filters'] ?? $this->filters('');
-        $result = \local_coursebridge\local\catalog::search(
+        $filters = $state['filters'] ?? filters::from_request('');
+        $result = catalog::search(
             $this->courseid(),
             $profileid,
             $filters,
@@ -110,15 +117,15 @@ class repository_coursebridge extends repository {
             }
             if (!empty($state['asset'])) {
                 foreach ($asset['occurrences'] as $occurrence) {
-                    $listing['list'][] = $this->filenode($occurrence, $asset['filesize'], $profileid);
+                    $listing['list'][] = picker::filenode($occurrence, $asset['filesize'], $profileid);
                 }
             } else if (count($asset['occurrences']) === 1) {
-                $listing['list'][] = $this->filenode($asset['occurrences'][0], $asset['filesize'], $profileid);
+                $listing['list'][] = picker::filenode($asset['occurrences'][0], $asset['filesize'], $profileid);
             } else {
                 $first = $asset['occurrences'][0];
                 $listing['list'][] = [
                     'title' => $first['filename'] . ' (' . count($asset['occurrences']) . ')',
-                    'children' => [], 'thumbnail' => $this->foldericon(),
+                    'children' => [], 'thumbnail' => picker::foldericon(),
                     'path' => base64_encode(json_encode(['profileid' => $profileid, 'filters' => $filters,
                         'after' => $state['after'] ?? '', 'asset' => $asset['contenthash']])),
                 ];
@@ -127,7 +134,7 @@ class repository_coursebridge extends repository {
         if (empty($state['asset']) && $result['next'] !== '') {
             $listing['list'][] = [
                 'title' => get_string('nextpage', 'repository_coursebridge'),
-                'children' => [], 'thumbnail' => $this->foldericon(),
+                'children' => [], 'thumbnail' => picker::foldericon(),
                 'path' => base64_encode(json_encode(['profileid' => $profileid, 'filters' => $filters,
                     'after' => $result['next']])),
             ];
@@ -144,7 +151,7 @@ class repository_coursebridge extends repository {
      */
     public function search($searchtext, $page = 0) {
         return $this->get_listing(base64_encode(json_encode([
-            'profileid' => $this->profileid(), 'filters' => $this->filters($searchtext),
+            'profileid' => $this->profileid(), 'filters' => filters::from_request($searchtext),
         ])));
     }
 
@@ -159,11 +166,11 @@ class repository_coursebridge extends repository {
         foreach ($DB->get_records('local_coursebridge', ['enabled' => 1], 'name') as $profile) {
             $options[$profile->id] = $profile->name;
         }
-        return $OUTPUT->render_from_template('repository_coursebridge/search_form', [
+        return $OUTPUT->render_from_template('repository_coursebridge/local/picker/search_form', [
             'id' => 'coursebridge-search-' . $this->id,
-            'profiles' => \local_coursebridge\output\display::options($options, (string)$this->profileid()),
-            'filetypes' => \local_coursebridge\output\display::options(\local_coursebridge\output\display::filetypes(), ''),
-            'modules' => \local_coursebridge\output\display::options([
+            'profiles' => display::options($options, (string)$this->profileid()),
+            'filetypes' => display::options(display::filetypes(), ''),
+            'modules' => display::options([
                 '' => get_string('all'), 'folder' => get_string('modulename', 'folder'),
                 'resource' => get_string('modulename', 'resource'),
             ], ''),
@@ -181,12 +188,12 @@ class repository_coursebridge extends repository {
         if (!is_array($token) || empty($token['pathnamehash']) || empty($token['profileid'])) {
             throw new moodle_exception('materialunavailable', 'local_coursebridge');
         }
-        [$file, $cm] = \local_coursebridge\local\material_source::resolve(
+        [$file, $cm] = material_source::resolve(
             $token['pathnamehash'],
             $this->courseid(),
             (int)$token['profileid']
         );
-        \local_coursebridge\local\author_policy::require_native_copy($file, $cm->course, $this->courseid());
+        author_policy::require_native_copy($file, $cm->course, $this->courseid());
         $this->selectedprofile = (int)$token['profileid'];
         return file_storage::pack_reference([
             'contextid' => $file->get_contextid(), 'component' => $file->get_component(),
@@ -226,18 +233,18 @@ class repository_coursebridge extends repository {
             throw new moodle_exception('materialunavailable', 'local_coursebridge');
         }
         $profileid = $this->selectedprofile ?: $this->profileid();
-        [$file, $cm] = \local_coursebridge\local\material_source::resolve(
+        [$file, $cm] = material_source::resolve(
             $file->get_pathnamehash(),
             $this->courseid(),
             $profileid
         );
-        \local_coursebridge\local\author_policy::require_native_copy($file, $cm->course, $this->courseid());
+        author_policy::require_native_copy($file, $cm->course, $this->courseid());
         $record = (array)$filerecord;
         $record['author'] = $file->get_author();
         $record['license'] = $file->get_license();
         $transaction = $DB->start_delegated_transaction();
         try {
-            $attributionid = \local_coursebridge\local\author_policy::capture($file);
+            $attributionid = author_policy::capture($file);
             $record['source'] = serialize((object)['source' => json_encode(['coursebridge' => $DB->get_field(
                 'local_coursebridge_attribution',
                 'uuid',
@@ -280,46 +287,5 @@ class repository_coursebridge extends repository {
             throw new moodle_exception('noprofile', 'local_coursebridge');
         }
         return $id;
-    }
-
-    /**
-     * Native request filters.
-     *
-     * @param string $query Filename query.
-     * @return array Filters.
-     */
-    private function filters(string $query): array {
-        return ['q' => $query, 'edition' => optional_param('cbedition', '', PARAM_TEXT),
-            'module' => optional_param('cbmodule', '', PARAM_ALPHA),
-            'shortname' => optional_param('cbshortname', '', PARAM_TEXT),
-            'mimetype' => optional_param('cbmime', '', PARAM_TEXT)];
-    }
-
-    /**
-     * Build a concrete occurrence node.
-     *
-     * @param array $occurrence Authorized metadata.
-     * @param int $size Bytes.
-     * @param int $profileid Profile.
-     * @return array Node.
-     */
-    private function filenode(array $occurrence, int $size, int $profileid): array {
-        global $OUTPUT;
-        return ['title' => $occurrence['filename'], 'shorttitle' => $occurrence['shortname'] . ': '
-            . $occurrence['modulename'] . $occurrence['filepath'] . $occurrence['filename'],
-            'size' => $size, 'author' => $occurrence['author'], 'license' => $occurrence['license'],
-            'source' => base64_encode(json_encode(['profileid' => $profileid,
-                'pathnamehash' => $occurrence['pathnamehash']])),
-            'thumbnail' => $OUTPUT->image_url(file_extension_icon($occurrence['filename']))->out(false)];
-    }
-
-    /**
-     * Core folder icon.
-     *
-     * @return string URL.
-     */
-    private function foldericon(): string {
-        global $OUTPUT;
-        return $OUTPUT->image_url('f/folder')->out(false);
     }
 }

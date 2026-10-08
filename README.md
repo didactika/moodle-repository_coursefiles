@@ -20,6 +20,7 @@ The target context comes from the repository instance. System/private-user uploa
 - [Authorization and draft architecture](docs/02-architecture.md).
 - [Installation and exact core targets](docs/03-installation-and-compatibility.md).
 - [Theme-overridable search fields](docs/04-presentation-and-theming.md).
+- [Source folders and native entry contracts](docs/05-source-structure.md).
 - [UC01 search](docs/use-cases/uc01-search-materials.md) and [UC02 attach](docs/use-cases/uc02-attach-material.md).
 - [UML sources and previews](docs/diagrams/README.md).
 - [Development checks](CONTRIBUTING.md).
