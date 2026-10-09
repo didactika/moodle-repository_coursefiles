@@ -7,9 +7,9 @@ Precondition: The actor can reuse materials and edit the target course; the sele
 ![Conversation](../diagrams/use-case-details/uc02-attach-material.svg)
 
 1. **Teacher:** Chooses an exact permitted source in the native repository.
-2. **repository_coursebridge:** Decodes the source token and resolves the target context.
+2. **repository_multipicker:** Decodes the source token and resolves the target context.
 3. **material_source / author_policy:** Revalidates live source access and author-copy policy.
-4. **repository_coursebridge:** Copies into the native draft with the source author, licence and attribution UUID.
+4. **repository_multipicker:** Copies into the native draft with the source author, licence and attribution UUID.
 5. **Teacher / Moodle:** Saves the course editing form through its native module contract.
 
 - Malformed, unavailable or unauthorized sources are refused.

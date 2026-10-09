@@ -17,12 +17,12 @@
 /**
  * Native picker node presentation.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace repository_coursebridge\output;
+namespace repository_multipicker\output;
 
 /**
  * Formats authorized occurrences for Moodle's picker listing.

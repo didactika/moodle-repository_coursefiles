@@ -12,3 +12,5 @@ Each source has a sibling SVG preview. Views are grouped by responsibility and d
 | sequences/uc02-attach-material.puml | [Source](sequences/uc02-attach-material.puml) | [SVG](sequences/uc02-attach-material.svg) |
 | use-case-details/uc01-search-materials.puml | [Source](use-case-details/uc01-search-materials.puml) | [SVG](use-case-details/uc01-search-materials.svg) |
 | use-case-details/uc02-attach-material.puml | [Source](use-case-details/uc02-attach-material.puml) | [SVG](use-case-details/uc02-attach-material.svg) |
+
+![Approved native batches](sequences/native-batch.svg)

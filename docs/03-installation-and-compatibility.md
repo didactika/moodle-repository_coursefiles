@@ -1,6 +1,6 @@
 # Installation and compatibility
 
-Install local_coursebridge first, activate an enabled profile and refresh source materials. Install this package at `repository/coursebridge` under the exact core's application directory and enable the repository in Moodle administration.
+Install local_multipicker first, activate an enabled profile and refresh source materials. Install this package at `repository/multipicker` under the exact core's application directory and enable the repository in Moodle administration.
 
 | Tested target | Application path | Runtime |
 |---|---|---|
@@ -11,8 +11,10 @@ Install local_coursebridge first, activate an enabled profile and refresh source
 
 The repository requires a native course context, target editing/reuse permissions and current source eligibility. Private/system upload contexts are rejected. Revoked or newly hidden/restricted sources cannot be selected from a stale listing.
 
-Checks on 2026-10-09 passed on both listed cores: eight PHPUnit tests and 31 assertions per core cover authorized listings, tokens, author policy, draft/native save behavior and labelled template controls with a submit button. Three native Firefox/Behat scenarios and 52 steps per core cover grouped editions, submitted filters, folder save preserving existing files and keyboard search. Moodle's axe check passes for the search region. See the [reproducible browser checks and their scope](06-native-picker-tests.md). Moodle coding standards report zero errors and warnings.
+The current component rename retains configured repository type/instance IDs. Deploy both packages together using the local plugin's `docs/21-component-rename.md` procedure. The repository installation hook preserves its old settings and references; no repository business tables are created.
 
-Separate visual checks open the real modal with each core's Boost stylesheet at 1366 px and inside a 390 px viewport without page-level horizontal overflow. The search template supplies the submit button; Moodle owns the surrounding form and AJAX handler. After updating template or language files, purge Moodle caches so existing installations load them.
+The embedded browser supplies responsive server-rendered cards, exact named-capture filters, a removable selection basket and bounded content pages. Native Folder content editing and registered activity filemanager/editor settings retain their own save/cancel and permission contracts. See [the native picker checks](06-native-picker-tests.md) and the local package's current validation matrix.
 
-Native file-type compatibility and author policy are separate checks. Strict policy refuses copying through editors with unprotected later author changes; editable-with-provenance preserves the initial declaration. There is no custom AMD/React bundle. Support for other core releases is not inferred.
+Native file-type compatibility and author policy are separate checks. Strict policy refuses copying through editors with unprotected later author changes; editable-with-provenance preserves the initial declaration. This repository owns no custom AMD/React bundle. Its local dependency supplies a native AMD chooser adapter built on each target core, with a separate Moodle 5 distribution. Support for other core releases is not inferred.
+
+Maintenance branches for this delivery: `feat/multipicker-45` and `feat/multipicker-5`. The Moodle 5 artifact declares Moodle 5.3 as its minimum; use the Moodle 4.5 artifact for that release. Shared PHP, database, capability and draft contracts are aligned.

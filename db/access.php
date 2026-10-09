@@ -17,14 +17,14 @@
 /**
  * Repository use capability.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-    'repository/coursebridge:view' => [
+    'repository/multipicker:view' => [
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => ['editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW],

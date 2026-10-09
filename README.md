@@ -1,16 +1,16 @@
-# CourseBridge — repository_coursebridge
+# MultiPicker — repository_multipicker
 
 Materials from related courses inside Moodle's native file picker.
 
-Install at `repository/coursebridge`. This plugin requires **local_coursebridge** and delegates grouping, access, publication and author policy to it. It owns no business tables or binary store.
+Install at `repository/multipicker`. This plugin requires **local_multipicker** and delegates grouping, access, publication and author policy to it. It owns no business tables or binary store.
 
 ![Picker responsibilities](docs/diagrams/components.svg)
 
 ## Install and use
 
-Install local_coursebridge first, install this package through Moodle's plugin upgrade procedure and enable **Materials from related courses** under Site administration → Plugins → Repositories → Manage repositories.
+Install local_multipicker first, install this package through Moodle's plugin upgrade procedure and enable **Materials from related courses** under Site administration → Plugins → Repositories → Manage repositories.
 
-Open a course editing filepicker/filemanager. Filter by profile, file name, edition, course shortname, source activity and file type. Identical content appears once with its permitted origins. Choose an exact source declaration to copy into the native draft.
+Press **Import materials** beside a supported native Folder/File filemanager for visual multiple selection inside the picker. Other course editing filepicker controls retain individual selection. Filter by profile, file name, edition, course shortname, source activity and file type. Identical content appears once with its permitted origins. Choose an exact source declaration to copy into the native draft.
 
 The target context comes from the repository instance. System/private-user upload contexts are rejected. The native control retains its allowed file types and size limits.
 
@@ -28,4 +28,4 @@ The target context comes from the repository instance. System/private-user uploa
 
 Version: **alpha**. Required cores: Moodle 4.5 and 5.3. Initial source author/licence is preserved; strict copying is refused because later native author edits cannot be prevented by this package. Editable-with-provenance policy allows later native changes.
 
-The native picker supplies the dialog and file presentation; the plugin's search fields use a theme-overridable Mustache template. No custom JavaScript bundle is included. License: GPL v3 or later.
+The native picker supplies the dialog and file presentation; the plugin's search fields use a theme-overridable Mustache template. The local dependency supplies the native chooser AMD adapter; this repository owns no frontend bundle. License: GPL v3 or later.

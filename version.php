@@ -17,15 +17,15 @@
 /**
  * Repository plugin version metadata.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'repository_coursebridge';
-$plugin->version = 2026100802;
+$plugin->component = 'repository_multipicker';
+$plugin->version = 2026100902;
 $plugin->requires = 2024100700;
-$plugin->dependencies = ['local_coursebridge' => 2026100802];
+$plugin->dependencies = ['local_multipicker' => 2026100902];
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '0.1.0-dev';
