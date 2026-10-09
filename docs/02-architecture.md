@@ -1,6 +1,6 @@
 # Repository architecture
 
-repository_coursebridge extends Moodle's `repository` class and supports `FILE_INTERNAL`. local_coursebridge is its versioned dependency and sole business-data owner. Keep this package focused on UI/native-draft integration.
+repository_multipicker extends Moodle's `repository` class and supports `FILE_INTERNAL`. local_multipicker is its versioned dependency and sole business-data owner. Keep this package focused on UI/native-draft integration.
 
 ![Analysis responsibilities](diagrams/analysis-classes.svg)
 
@@ -22,6 +22,14 @@ Capture and core copy share a delegated database transaction. A core size-limit 
 
 ![Native save and editable metadata](diagrams/sequences/native-save-and-edit.svg)
 
-Later native author/licence changes remain possible after an editable-policy copy; the captured original declaration stays unchanged. The source marker is not an authorization token. An effective strict policy refuses CourseBridge copying, including policy changes between selection and copy; it does not retroactively freeze files already copied under an editable policy.
+Later native author/licence changes remain possible after an editable-policy copy; the captured original declaration stays unchanged. The source marker is not an authorization token. An effective strict policy refuses MultiPicker copying, including policy changes between selection and copy; it does not retroactively freeze files already copied under an editable policy.
 
 This plugin has no XMLDB installation tables. The Privacy provider declares linked core file/local-plugin ownership. Business-table access is confined to discovery/lookup contracts; copying never manipulates physical content storage.
+
+## Reviewed batch sources
+
+When `get_listing` finds a valid owning-form scope for the current context/itemid and native `filemanager` environment, it returns Moodle's documented `object` HTML chooser description. Requests without that live binding retain individual listings.
+
+A batch descriptor contains the opaque session scope and review digest. `get_file_reference` validates its types, actor/session, context, current review and sources before returning a representative native packed reference. `copy_to_area` checks the exact owning draft again and applies the remembered batch using authoritative limits. The native source-key check remains in core. The returned native file response refreshes the original filemanager, including when every reviewed file is skipped as identical. No permanent activity save occurs here.
+
+![Native batch sequence](diagrams/sequences/native-batch.svg)

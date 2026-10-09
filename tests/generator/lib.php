@@ -17,19 +17,19 @@
 /**
  * Published course edition fixtures for browser acceptance.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_coursebridge\local\profile\profiles;
-use local_coursebridge\local\catalog\indexer;
-use local_coursebridge\local\catalog\material_source;
+use local_multipicker\local\profile\profiles;
+use local_multipicker\local\catalog\indexer;
+use local_multipicker\local\catalog\material_source;
 
 /**
  * Native file picker fixtures, isolated by Moodle's test environment.
  */
-final class repository_coursebridge_generator extends component_generator_base {
+final class repository_multipicker_generator extends component_generator_base {
     /**
      * Create published editions and a teacher enrolled only in the destination.
      *
@@ -41,17 +41,17 @@ final class repository_coursebridge_generator extends component_generator_base {
         $previoususer = $USER;
         $this->set_user(get_admin());
         try {
-            $example = $CFG->dirroot . '/local/coursebridge/examples/institutional-profile.json';
+            $example = $CFG->dirroot . '/local/multipicker/examples/institutional-profile.json';
             $config = json_decode(file_get_contents($example), true);
             $config['name'] = $record['name'];
             $config['publication']['mode'] = 'explicit-family-publication';
             $profileid = profiles::save(json_encode($config));
-            set_config('author_policy', 'editable_with_provenance', 'local_coursebridge');
+            set_config('author_policy', 'editable_with_provenance', 'local_multipicker');
             $uuid = \core\uuid::generate();
             $courses = [];
             foreach ([2024, 2025, 2026] as $edition) {
                 $courses[$edition] = $this->datagenerator->create_course([
-                    'fullname' => 'CourseBridge ' . $edition, 'shortname' => 'CB' . $edition,
+                    'fullname' => 'MultiPicker ' . $edition, 'shortname' => 'CB' . $edition,
                     'idnumber' => $uuid . '||CB||' . $edition,
                 ]);
                 $folder = $this->datagenerator->create_module('folder', [
@@ -72,6 +72,12 @@ final class repository_coursebridge_generator extends component_generator_base {
             $resource = $this->datagenerator->create_module('resource', [
                 'course' => $courses[2025]->id, 'name' => 'Published resource',
             ]);
+            get_file_storage()->delete_area_files(
+                context_module::instance($resource->cmid)->id,
+                'mod_resource',
+                'content',
+                0
+            );
             $this->create_file($resource->cmid, 'mod_resource', 'resource.txt', 'Resource content');
             material_source::publish($profileid, $resource->cmid, false);
             $hidden = $this->datagenerator->create_module('folder', [
@@ -83,8 +89,8 @@ final class repository_coursebridge_generator extends component_generator_base {
             }
             $teacher = $this->datagenerator->create_user(['username' => 'cbteacher', 'password' => 'cbteacher']);
             $this->datagenerator->enrol_user($teacher->id, $courses[2026]->id, 'editingteacher');
-            require_once($CFG->dirroot . '/repository/coursebridge/lib.php');
-            $type = new repository_type('coursebridge');
+            require_once($CFG->dirroot . '/repository/multipicker/lib.php');
+            $type = new repository_type('multipicker');
             $type->create(false);
             return ['targetcmid' => $targetcmid, 'targetcourse' => $courses[2026]->id, 'profileid' => $profileid,
                 'teacherid' => $teacher->id, 'wwwroot' => $CFG->wwwroot];
