@@ -17,26 +17,26 @@
 /**
  * Repository language strings.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Materials from related courses';
 $string['bulkheading'] = 'Several files or folders';
-$string['bulkhelp'] = 'Need several files or a whole folder? Close this picker. In Folder or File activity Settings, press "Select several files or folders" beside the file manager. Your pending changes stay in that form. The separate Folder Edit-content page uses the individual picker.';
-$string['configplugin'] = 'CourseBridge repository configuration';
-$string['searchhelp'] = 'Find a file, narrow the results and choose its source edition.';
-$string['coursebridge'] = 'Related course materials';
-$string['coursebridge:view'] = 'Use the CourseBridge repository';
-$string['privacy_metadata'] = 'Files remain in Moodle storage. CourseBridge provenance and action data are owned by local_coursebridge.';
-$string['nextpage'] = 'Next page';
-$string['profile'] = 'Relationship profile';
-$string['s'] = 'Filename';
+$string['bulkhelp'] = 'Folder and File filemanagers offer visual multiple selection through Import materials. Other controls keep their native single-file picker.';
 $string['cbedition'] = 'Edition';
-$string['cbshortname'] = 'Course shortname';
 $string['cbmime'] = 'File type';
 $string['cbmodule'] = 'Source module';
+$string['cbshortname'] = 'Course shortname';
+$string['configplugin'] = 'MultiPicker repository configuration';
 $string['folder'] = 'Folder';
+$string['multipicker'] = 'Related course materials';
+$string['multipicker:view'] = 'Use the MultiPicker repository';
+$string['nextpage'] = 'Next page';
+$string['pluginname'] = 'MultiPicker';
+$string['privacy_metadata'] = 'Files remain in Moodle storage. MultiPicker provenance and action data are owned by local_multipicker.';
+$string['profile'] = 'Relationship profile';
 $string['resource'] = 'File resource';
+$string['s'] = 'Filename';
+$string['searchhelp'] = 'Find a file, narrow the results and choose its source edition.';

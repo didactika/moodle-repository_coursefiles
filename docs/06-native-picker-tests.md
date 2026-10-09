@@ -1,26 +1,24 @@
 # Native picker acceptance
 
-The packaged [Behat feature](../tests/behat/native_picker.feature) runs inside Moodle's isolated acceptance site with Firefox and Boost. Its fixture uses the installed local plugin and native course, folder, resource, enrolment and File APIs; it does not mock Repository AJAX.
+The packaged [Behat feature](../tests/behat/native_picker.feature) runs inside Moodle's isolated acceptance site with Firefox and Boost. Its fixture uses native courses, modules, enrolment, File APIs and real Repository AJAX. The local dependency supplies the supported filemanager binding and embedded chooser.
 
 ![Search through the native picker](diagrams/sequences/uc01-search-materials.svg)
 
-The fixture teacher is enrolled only in the destination course. Two earlier editions explicitly publish identical lesson content; a hidden folder is excluded. The destination already contains a file. The fixture opts into editable-with-provenance only for these tests; production's strict default is unchanged.
+The teacher is enrolled only in the destination course. Earlier editions explicitly publish materials; hidden material is excluded. The destination already contains a file. Tests explicitly opt into editable-with-provenance while retaining the strict package default.
 
 | Scenario | Verified behavior |
 |---|---|
-| Grouped origins | Identical bytes appear once; expanding the group identifies both course shortnames. Hidden material does not appear. |
-| Filter and save | Filename, edition, exact shortname, module and MIME filters reach the native AJAX handler. Selecting the result and saving the folder preserves the existing file. |
-| Keyboard search | Tab reaches all six controls and Search in order. Enter on Search submits and filters the result. |
+| Unique content and hidden sources | Filename search presents one lesson file across two editions and excludes hidden activity/files. |
+| Combined filters and save | Filename, edition, exact shortname, activity type and MIME filters use the embedded native form; source author is reviewed; native save preserves the existing destination file. |
+| Retained selection | A selected source folder remains selected after searching for an individual resource; review expands both. |
 
-All scenarios run Moodle's axe accessibility check on `.coursebridge-search`, including labels, controls and the Search button. This automated region check is not a complete site or screen-reader certification.
+The repository feature passes **3 scenarios / 37 steps** on each exact required core. The local dependency passes **13 scenarios / 177 steps**, including automatic filters with retained focus, a separate folder-tree review, restricted Folder content permission, public Assignment handouts and Tiny multi-link save/reopen. Service suites also check undeclared/private areas and unrelated fragment contexts.
 
-On 2026-10-09, all **3 scenarios / 52 steps** passed on both Moodle 4.5.13 (build 20260810) and Moodle 5.3 (build 20261005), with PHP 8.3.33 and PostgreSQL 17.10. The repository PHPUnit suite separately passed **8 tests / 31 assertions** on each core.
+The [local validation record](../../moodle-local_multipicker/docs/07-validation-and-decisions.md) gives the exact core/runtime matrix. Desktop/mobile inspection and explicit labels are useful evidence, not a complete accessibility certification.
 
-The same three scenarios and 52 steps pass again on `feat/coursebridge-bulk-entry`, including the native search-region accessibility check with the new collapsed **Several files or folders** disclosure. The companion local branch `feat/coursebridge-simple-form` verifies the same-form shortcut with seven module-form cases / 58 assertions per core. Search guidance stays compact so native result lists remain visible in the tested 4.5 and 5.3 dialogs.
+## Run checks
 
-## Run the packaged checks
-
-Use a disposable Moodle checkout with its Behat database prefix, dataroot and URL separate from the normal site. Install both CourseBridge packages and initialize the native test environment from the core checkout root:
+Use a disposable Moodle checkout with independent Behat database/dataroot/URL, install both packages and initialize from the core checkout root:
 
 ```sh
 # Moodle 4.5.
@@ -30,9 +28,7 @@ php admin/tool/behat/cli/init.php
 php public/admin/tool/behat/cli/init.php
 
 # Use the configuration path printed by init.php.
-vendor/bin/behat --config /path/to/behat.yml --tags=@repository_coursebridge
+php vendor/bin/behat --config /path/to/behat.yml --tags=@repository_multipicker
 ```
 
-Moodle's generic component generator step loads `tests/generator/behat_repository_coursebridge_generator.php` and `tests/generator/lib.php`. These fixtures belong to the test environment and are not administration actions.
-
-Separate visual checks opened the real native modal at desktop width 1366 px and inside a same-origin 390 px viewport on each core. The search fields fit their available width with no page-level horizontal overflow. These checks use Firefox on Linux; other browsers and themes are outside this evidence.
+The local dependency provides the shared embedded-browser Behat context. Both component generators are isolated test fixtures, not administration actions. Source resource fixtures remove generated sample files before adding their declared materials.

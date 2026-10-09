@@ -1,15 +1,21 @@
 # Native picker workflow
 
-Open a course form's file picker and select **Materials from related courses**. Select the relationship profile, filename query, edition label, exact course shortname, source module or MIME type, then press **Search**. Tab follows the labelled controls in that order and reaches Search; Enter on the button submits through Moodle's native search handler. Results are authorized in the local plugin before they appear.
+Open native Add files, then select **MultiPicker** with its repository icon. Registered activity filemanagers and editors open a scoped multiple-selection browser inside the existing picker, on both create and edit forms. The separate Folder content Edit page requires only its native managefiles permission plus MultiPicker access.
+
+Source activity initially matches the destination module. Choose All to browse other enabled public areas. Filename typing and filter selects update results automatically; custom named capture filters come from the selected relationship profile. Select file cards or entire Folder content trees, switch Cards/List layout, navigate folders, and keep selections across result pages.
+
+Review selection opens a separate page in the same modal. A collapsible tree shows destination paths, original declarations and decisions. Back returns to selection. Import reviewed materials invokes Moodle's documented external chooser and protected download; the original native form retains saving/cancellation authority. File activities retain their existing main-file choice. Tiny's native Link picker inserts all reviewed links; image/media controls remain single-file.
+
+![Embedded batch transfer](diagrams/sequences/native-batch.svg)
+
+Supported public areas are declared by the local dependency and enabled by each profile: Folder/File/Page/Book content, Assignment handouts/instructions and public activity introductions. Hidden/restricted/private sources, submissions and feedback are excluded. Explicit publication and ordinary native access follow the local policy; source tokens never grant permission.
+
+## Individual controls
+
+Unregistered native upload controls retain Moodle's ordinary single-file listing/search contract. Its labelled profile, filename, edition, course, source module and type controls use native Search submission. Identical bytes group together; expand a group to choose a concrete authorized occurrence and its original author/licence.
 
 ![Search sequence](diagrams/sequences/uc01-search-materials.svg)
 
-Identical bytes appear as one grouped result. Expand it to choose a concrete occurrence, its course/module/path and declared author. Selecting it copies a native file into the logged-in user's draft; the destination form retains its own file size/type validation.
-
 ![Attachment conversation](diagrams/use-case-details/uc02-attach-material.svg)
 
-Author policy is resolved on the server for source and destination. The current copy implementation rejects strict locks rather than pretending a hidden field prevents native metadata edits. Under editable-with-provenance, the initial source author/license is preserved even if a client submits the importer as author.
-
-Supported source areas are folder/resource content declared by the local plugin. Hidden/restricted/private sources are excluded. This integration applies to controls invoking the Repository API, not every backup/import/custom uploader in Moodle.
-
-For several files or a whole folder, open **Several files or folders** in the search form. Close the picker and press **Select several files or folders** beside the filemanager in Folder/File activity Settings. The local plugin opens mixed selection in that same form, retaining pending changes. On the separate Folder Edit-content page, save or cancel its changes before opening Settings.
+The local plugin resolves author policy for source and destination. Strict locks refuse unsupported later native metadata protection. Editable-with-provenance preserves initial author/licence in history, including when the client submits another author. Integration covers registered native Repository API controls, not arbitrary custom uploaders or backup importers.

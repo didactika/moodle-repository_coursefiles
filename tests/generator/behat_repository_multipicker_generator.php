@@ -17,15 +17,15 @@
 /**
  * Native browser fixture generator mapping.
  *
- * @package repository_coursebridge
- * @copyright 2026 CourseBridge contributors
+ * @package repository_multipicker
+ * @copyright 2026 MultiPicker contributors
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
  * Makes published multi-edition materials available to native browser scenarios.
  */
-final class behat_repository_coursebridge_generator extends behat_generator_base {
+final class behat_repository_multipicker_generator extends behat_generator_base {
     /**
      * Describe component fixtures available to Moodle's generic generator step.
      *

@@ -3,7 +3,7 @@
 title Design — Native repository integration
 left to right direction
 class repository <<Moodle core>>
-class repository_coursebridge {
+class repository_multipicker {
   + get_listing(path, page)
   + print_search()
   + search(searchtext, page)
@@ -11,13 +11,13 @@ class repository_coursebridge {
   + file_is_accessible(source)
   + copy_to_area(source, record, limits)
 }
-class catalog <<local_coursebridge>>
-class material_source <<local_coursebridge>>
-class author_policy <<local_coursebridge>>
-repository <|-- repository_coursebridge
-repository_coursebridge --> catalog
-repository_coursebridge --> material_source
-repository_coursebridge --> author_policy
+class catalog <<local_multipicker>>
+class material_source <<local_multipicker>>
+class author_policy <<local_multipicker>>
+repository <|-- repository_multipicker
+repository_multipicker --> catalog
+repository_multipicker --> material_source
+repository_multipicker --> author_policy
 catalog -[hidden]down-> material_source
 material_source -[hidden]down-> author_policy
 @enduml
