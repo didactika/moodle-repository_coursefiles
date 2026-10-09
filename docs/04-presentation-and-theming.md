@@ -6,6 +6,8 @@ The Moodle core owns the picker dialog, file grid/list, selection controls and d
 
 Native flex and spacing utilities keep the field grid separate from the picker's toolbar float rules. Fields appear in two columns at desktop widths and one on small screens, without plugin CSS or JavaScript. All six controls and the submit button follow their document order for keyboard navigation.
 
+The **Several files or folders** native disclosure explains the route for several files or whole folders: close the dialog and press **Select several files or folders** beside the filemanager in Folder/File activity Settings. That local_coursebridge action opens the reuse section in the same pending form. The separate Folder Edit-content page still uses individual selection; opening Settings from there is a separate editing flow. No modal link creates another draft or abandons an unsaved form. The guidance is collapsed initially to retain space for native search results.
+
 Override the template at:
 
 ```text

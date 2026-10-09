@@ -5,7 +5,10 @@
     Example context (json): {"id":"cb-repository-1","profiles":[],"filetypes":[],"modules":[]}
 }}
 <div class="fp-def-search coursebridge-search w-100 float-none mx-0" data-region="coursebridge-search">
-    <p class="text-muted">{{#str}}searchhelp, repository_coursebridge{{/str}}</p>
+    <details class="mb-3">
+        <summary class="text-primary">{{#str}}bulkheading, repository_coursebridge{{/str}}</summary>
+        <p class="text-muted mt-2">{{#str}}bulkhelp, repository_coursebridge{{/str}}</p>
+    </details>
     <div class="row d-flex float-none mx-0">
         <div class="col-md-6 mb-3 mx-0">
             <label for="{{id}}-profile">{{#str}}profile, repository_coursebridge{{/str}}</label>

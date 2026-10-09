@@ -11,3 +11,5 @@ Identical bytes appear as one grouped result. Expand it to choose a concrete occ
 Author policy is resolved on the server for source and destination. The current copy implementation rejects strict locks rather than pretending a hidden field prevents native metadata edits. Under editable-with-provenance, the initial source author/license is preserved even if a client submits the importer as author.
 
 Supported source areas are folder/resource content declared by the local plugin. Hidden/restricted/private sources are excluded. This integration applies to controls invoking the Repository API, not every backup/import/custom uploader in Moodle.
+
+For several files or a whole folder, open **Several files or folders** in the search form. Close the picker and press **Select several files or folders** beside the filemanager in Folder/File activity Settings. The local plugin opens mixed selection in that same form, retaining pending changes. On the separate Folder Edit-content page, save or cancel its changes before opening Settings.

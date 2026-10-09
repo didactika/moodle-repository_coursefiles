@@ -24,6 +24,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Materials from related courses';
+$string['bulkheading'] = 'Several files or folders';
+$string['bulkhelp'] = 'Need several files or a whole folder? Close this picker. In Folder or File activity Settings, press "Select several files or folders" beside the file manager. Your pending changes stay in that form. The separate Folder Edit-content page uses the individual picker.';
 $string['configplugin'] = 'CourseBridge repository configuration';
 $string['searchhelp'] = 'Find a file, narrow the results and choose its source edition.';
 $string['coursebridge'] = 'Related course materials';

@@ -24,6 +24,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Materiales de cursos relacionados';
+$string['bulkheading'] = 'Varios archivos o carpetas';
+$string['bulkhelp'] = '¿Necesitas varios archivos o una carpeta completa? Cierra este selector. En los Ajustes de una actividad Carpeta o Archivo, pulsa "Seleccionar varios archivos o carpetas" junto al gestor de archivos. Los cambios pendientes se conservan en ese formulario. La página independiente para editar el contenido de una carpeta usa el selector individual.';
 $string['configplugin'] = 'Configuración del repositorio CourseBridge';
 $string['searchhelp'] = 'Busca un archivo, acota los resultados y elige su edición de origen.';
 $string['coursebridge'] = 'Materiales de cursos relacionados';

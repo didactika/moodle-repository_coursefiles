@@ -16,6 +16,8 @@ All scenarios run Moodle's axe accessibility check on `.coursebridge-search`, in
 
 On 2026-10-09, all **3 scenarios / 52 steps** passed on both Moodle 4.5.13 (build 20260810) and Moodle 5.3 (build 20261005), with PHP 8.3.33 and PostgreSQL 17.10. The repository PHPUnit suite separately passed **8 tests / 31 assertions** on each core.
 
+The same three scenarios and 52 steps pass again on `feat/coursebridge-bulk-entry`, including the native search-region accessibility check with the new collapsed **Several files or folders** disclosure. The companion local branch `feat/coursebridge-simple-form` verifies the same-form shortcut with seven module-form cases / 58 assertions per core. Search guidance stays compact so native result lists remain visible in the tested 4.5 and 5.3 dialogs.
+
 ## Run the packaged checks
 
 Use a disposable Moodle checkout with its Behat database prefix, dataroot and URL separate from the normal site. Install both CourseBridge packages and initialize the native test environment from the core checkout root:
