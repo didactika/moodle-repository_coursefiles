@@ -17,7 +17,7 @@
 /**
  * Repository language strings.
  *
- * @package repository_multipicker
+ * @package repository_coursefiles
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,13 +30,13 @@ $string['cbedition'] = 'Edition';
 $string['cbmime'] = 'File type';
 $string['cbmodule'] = 'Source module';
 $string['cbshortname'] = 'Course shortname';
-$string['configplugin'] = 'MultiPicker repository configuration';
+$string['configplugin'] = 'CourseFiles repository configuration';
 $string['folder'] = 'Folder';
-$string['multipicker'] = 'Related course materials';
-$string['multipicker:view'] = 'Use the MultiPicker repository';
+$string['coursefiles'] = 'Related course materials';
+$string['coursefiles:view'] = 'Use the CourseFiles repository';
 $string['nextpage'] = 'Next page';
-$string['pluginname'] = 'MultiPicker';
-$string['privacy_metadata'] = 'Files remain in Moodle storage. MultiPicker provenance and action data are owned by local_multipicker.';
+$string['pluginname'] = 'CourseFiles';
+$string['privacy_metadata'] = 'Files remain in Moodle storage. CourseFiles provenance and action data are owned by local_coursefiles.';
 $string['profile'] = 'Relationship profile';
 $string['resource'] = 'File resource';
 $string['s'] = 'Filename';

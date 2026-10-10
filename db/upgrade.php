@@ -15,26 +15,21 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Native browser fixture generator mapping.
+ * Upgrade an adopted repository instance without losing its configured name.
  *
- * @package repository_multipicker
+ * @package repository_coursefiles
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 /**
- * Makes published multi-edition materials available to native browser scenarios.
+ * Update the repository distribution version.
+ * @param int $oldversion Installed version.
+ * @return bool Completed.
  */
-final class behat_repository_multipicker_generator extends behat_generator_base {
-    /**
-     * Describe component fixtures available to Moodle's generic generator step.
-     *
-     * @return array Entities.
-     */
-    protected function get_creatable_entities(): array {
-        return ['picker fixtures' => [
-            'singular' => 'picker fixture', 'datagenerator' => 'picker_fixture', 'required' => ['name'],
-        ]];
+function xmldb_repository_coursefiles_upgrade(int $oldversion): bool {
+    if ($oldversion < 2026101100) {
+        upgrade_plugin_savepoint(true, 2026101100, 'repository', 'coursefiles');
     }
+    return true;
 }

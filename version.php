@@ -17,17 +17,17 @@
 /**
  * Repository plugin version metadata.
  *
- * @package repository_multipicker
+ * @package repository_coursefiles
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'repository_multipicker';
-$plugin->version = 2026101001;
-$plugin->requires = 2024100700;
-$plugin->dependencies = ['local_multipicker' => 2026101002];
+$plugin->component = 'repository_coursefiles';
+$plugin->version = 2026101100;
+$plugin->requires = 2022041900;
+$plugin->dependencies = ['local_coursefiles' => 2026101100];
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '4.5.0';
-$plugin->supported = [405, 405];
+$plugin->supported = [400, 502];

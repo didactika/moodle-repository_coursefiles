@@ -17,13 +17,13 @@
 /**
  * Native picker node presentation.
  *
- * @package repository_multipicker
+ * @package repository_coursefiles
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace repository_multipicker\output;
+namespace repository_coursefiles\output;
 
 /**
  * Formats authorized occurrences for Moodle's picker listing.
