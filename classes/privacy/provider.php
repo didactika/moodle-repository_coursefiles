@@ -17,12 +17,12 @@
 /**
  * Repository data ownership declaration.
  *
- * @package repository_coursefiles
+ * @package repository_filebank
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace repository_coursefiles\privacy;
+namespace repository_filebank\privacy;
 
 /**
  * Owns no independent records; the core draft subsystem and local plugin own them.
@@ -38,7 +38,7 @@ final class provider implements \core_privacy\local\metadata\provider {
         \core_privacy\local\metadata\collection $collection
     ): \core_privacy\local\metadata\collection {
         $collection->add_subsystem_link('files', [], 'privacy_metadata');
-        $collection->add_subsystem_link('local_coursefiles', [], 'privacy_metadata');
+        $collection->add_subsystem_link('local_filebank', [], 'privacy_metadata');
         return $collection;
     }
 }

@@ -17,17 +17,17 @@
 /**
  * Native Moodle file picker repository.
  *
- * @package repository_coursefiles
+ * @package repository_filebank
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-use local_coursefiles\local\catalog\catalog;
-use local_coursefiles\local\catalog\material_source;
-use local_coursefiles\local\policy\author_policy;
-use local_coursefiles\output\display;
-use repository_coursefiles\local\picker\filters;
-use repository_coursefiles\output\picker;
+use local_filebank\local\catalog\catalog;
+use local_filebank\local\catalog\material_source;
+use local_filebank\local\policy\author_policy;
+use local_filebank\output\display;
+use repository_filebank\local\picker\filters;
+use repository_filebank\output\picker;
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/repository/lib.php');
@@ -35,7 +35,7 @@ require_once($CFG->dirroot . '/repository/lib.php');
 /**
  * Presents one content result with selectable authorized source occurrences.
  */
-class repository_coursefiles extends repository {
+class repository_filebank extends repository {
     /**
      * @var int Profile revalidated for the current selected source.
      */
@@ -98,14 +98,14 @@ class repository_coursefiles extends repository {
      */
     public function get_listing($path = '', $page = '') {
         global $DB;
-        $scope = \local_coursefiles\local\selection\draft_scope::find(
+        $scope = \local_filebank\local\selection\draft_scope::find(
             $this->context,
             optional_param('itemid', 0, PARAM_INT),
             sesskey()
         );
         if ($scope !== '' && in_array(optional_param('env', '', PARAM_ALPHA), ['filemanager', 'editor'], true)) {
-            \local_coursefiles\local\selection\draft_scope::select_repository($scope, $this->get_name(), sesskey());
-            \local_coursefiles\local\selection\draft_scope::select_picker(
+            \local_filebank\local\selection\draft_scope::select_repository($scope, $this->get_name(), sesskey());
+            \local_filebank\local\selection\draft_scope::select_picker(
                 $scope,
                 (array)($this->options['mimetypes'] ?? ['*']),
                 optional_param('env', '', PARAM_ALPHA),
@@ -113,7 +113,7 @@ class repository_coursefiles extends repository {
             );
             return ['nologin' => true, 'nosearch' => true, 'norefresh' => true,
                 'object' => ['type' => 'text/html', 'src' => (new moodle_url(
-                    '/local/coursefiles/selection/index.php',
+                    '/local/filebank/selection/index.php',
                     ['scope' => $scope]
                 ))->out(false)]];
         }
@@ -121,7 +121,7 @@ class repository_coursefiles extends repository {
         if ($path !== '') {
             $state = json_decode(base64_decode($path, true) ?: '', true);
             if (!is_array($state)) {
-                throw new moodle_exception('invalidcursor', 'local_coursefiles');
+                throw new moodle_exception('invalidcursor', 'local_filebank');
             }
         }
         $profileid = (int)($state['profileid'] ?? $this->profileid());
@@ -158,7 +158,7 @@ class repository_coursefiles extends repository {
         }
         if (empty($state['asset']) && $result['next'] !== '') {
             $listing['list'][] = [
-                'title' => get_string('nextpage', 'repository_coursefiles'),
+                'title' => get_string('nextpage', 'repository_filebank'),
                 'children' => [], 'thumbnail' => picker::foldericon(),
                 'path' => base64_encode(json_encode(['profileid' => $profileid, 'filters' => $filters,
                     'after' => $result['next']])),
@@ -188,17 +188,17 @@ class repository_coursefiles extends repository {
     public function print_search() {
         global $DB, $OUTPUT;
         $options = [];
-        foreach ($DB->get_records('local_coursefiles', ['enabled' => 1], 'name') as $profile) {
+        foreach ($DB->get_records('local_filebank', ['enabled' => 1], 'name') as $profile) {
             $options[$profile->id] = $profile->name;
         }
-        return $OUTPUT->render_from_template('repository_coursefiles/local/picker/search_form', [
-            'id' => 'coursefiles-search-' . $this->id,
-            'filterhelp' => $OUTPUT->help_icon('listfilters', 'local_coursefiles'),
+        return $OUTPUT->render_from_template('repository_filebank/local/picker/search_form', [
+            'id' => 'filebank-search-' . $this->id,
+            'filterhelp' => $OUTPUT->help_icon('listfilters', 'local_filebank'),
             'profiles' => display::options($options, (string)$this->profileid()),
             'filetypes' => display::options(display::filetypes(), ''),
             'modules' => display::options([
                 '' => get_string('all'),
-            ] + \local_coursefiles\local\catalog\source_registry::module_names(), ''),
+            ] + \local_filebank\local\catalog\source_registry::module_names(), ''),
         ]);
     }
 
@@ -212,15 +212,15 @@ class repository_coursefiles extends repository {
         $token = json_decode(base64_decode($source, true) ?: '', true);
         if (is_array($token) && isset($token['batch'], $token['digest'])) {
             if (!is_string($token['batch']) || !is_string($token['digest'])) {
-                throw new moodle_exception('invalidselection', 'local_coursefiles');
+                throw new moodle_exception('invalidselection', 'local_filebank');
             }
-            [$scope, $review] = \local_coursefiles\local\selection\draft_scope::approved(
+            [$scope, $review] = \local_filebank\local\selection\draft_scope::approved(
                 $token['batch'],
                 $token['digest'],
                 sesskey()
             );
             if ($scope['contextid'] !== $this->context->id) {
-                throw new moodle_exception('formscopeunavailable', 'local_coursefiles');
+                throw new moodle_exception('formscopeunavailable', 'local_filebank');
             }
             $this->selectedbatch = $token;
             $file = get_file_storage()->get_file_by_hash($review['operations'][0]['pathnamehash']);
@@ -231,7 +231,7 @@ class repository_coursefiles extends repository {
             ]);
         }
         if (!is_array($token) || empty($token['pathnamehash']) || empty($token['profileid'])) {
-            throw new moodle_exception('materialunavailable', 'local_coursefiles');
+            throw new moodle_exception('materialunavailable', 'local_filebank');
         }
         [$file, $cm] = material_source::resolve(
             $token['pathnamehash'],
@@ -276,11 +276,11 @@ class repository_coursefiles extends repository {
         if ($this->selectedbatch !== null) {
             $token = $this->selectedbatch;
             $this->selectedbatch = null;
-            [$scope] = \local_coursefiles\local\selection\draft_scope::approved($token['batch'], $token['digest'], sesskey());
+            [$scope] = \local_filebank\local\selection\draft_scope::approved($token['batch'], $token['digest'], sesskey());
             if ($scope['contextid'] !== $this->context->id || $scope['draftid'] !== (int)((array)$filerecord)['itemid']) {
-                throw new moodle_exception('formscopeunavailable', 'local_coursefiles');
+                throw new moodle_exception('formscopeunavailable', 'local_filebank');
             }
-            $review = \local_coursefiles\local\selection\draft_scope::apply($token['batch'], $token['digest'], sesskey());
+            $review = \local_filebank\local\selection\draft_scope::apply($token['batch'], $token['digest'], sesskey());
             $context = context_user::instance($USER->id);
             $fs = get_file_storage();
             foreach ($review['operations'] as $operation) {
@@ -315,11 +315,11 @@ class repository_coursefiles extends repository {
                     }
                 }
             }
-            throw new moodle_exception('batchconflict', 'local_coursefiles');
+            throw new moodle_exception('batchconflict', 'local_filebank');
         }
         $file = repository::get_moodle_file($source);
         if (!$file) {
-            throw new moodle_exception('materialunavailable', 'local_coursefiles');
+            throw new moodle_exception('materialunavailable', 'local_filebank');
         }
         $profileid = $this->selectedprofile ?: $this->profileid();
         [$file, $cm] = material_source::resolve(
@@ -334,8 +334,8 @@ class repository_coursefiles extends repository {
         $transaction = $DB->start_delegated_transaction();
         try {
             $attributionid = author_policy::capture($file);
-            $record['source'] = serialize((object)['source' => json_encode(['coursefiles' => $DB->get_field(
-                'local_coursefiles_author',
+            $record['source'] = serialize((object)['source' => json_encode(['filebank' => $DB->get_field(
+                'local_filebank_author',
                 'uuid',
                 ['id' => $attributionid]
             )])]);
@@ -355,7 +355,7 @@ class repository_coursefiles extends repository {
     private function courseid(): int {
         $context = $this->context->get_course_context(false);
         if (!$context || $context->instanceid == SITEID) {
-            throw new moodle_exception('targetrequired', 'local_coursefiles');
+            throw new moodle_exception('targetrequired', 'local_filebank');
         }
         return (int)$context->instanceid;
     }
@@ -369,11 +369,11 @@ class repository_coursefiles extends repository {
         global $DB;
         $id = optional_param('cbprofile', 0, PARAM_INT);
         if (!$id) {
-            $profiles = $DB->get_records('local_coursefiles', ['enabled' => 1], 'id', 'id', 0, 1);
+            $profiles = $DB->get_records('local_filebank', ['enabled' => 1], 'id', 'id', 0, 1);
             $id = $profiles ? (int)reset($profiles)->id : 0;
         }
         if (!$id) {
-            throw new moodle_exception('noprofile', 'local_coursefiles');
+            throw new moodle_exception('noprofile', 'local_filebank');
         }
         return $id;
     }
