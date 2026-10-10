@@ -28,7 +28,7 @@ Feature: Search related material in the native embedded picker
     When I select MultiPicker material "resource.txt" from "CB2025"
     And I press MultiPicker action "Review selection"
     Then the MultiPicker review should include "Original teacher"
-    When I press MultiPicker action "Import reviewed materials"
+    When I press MultiPicker action "Import materials"
     And I press "Save changes"
     Then I should see "resource.txt"
     And I should see "existing.txt"
