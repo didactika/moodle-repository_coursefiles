@@ -17,7 +17,7 @@
 /**
  * Repository language strings.
  *
- * @package repository_coursefiles
+ * @package repository_filebank
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -30,13 +30,13 @@ $string['cbedition'] = 'Edition';
 $string['cbmime'] = 'File type';
 $string['cbmodule'] = 'Source module';
 $string['cbshortname'] = 'Course shortname';
-$string['configplugin'] = 'CourseFiles repository configuration';
+$string['configplugin'] = 'FileBank repository configuration';
 $string['folder'] = 'Folder';
-$string['coursefiles'] = 'Related course materials';
-$string['coursefiles:view'] = 'Use the CourseFiles repository';
+$string['filebank'] = 'Related course materials';
+$string['filebank:view'] = 'Use the FileBank repository';
 $string['nextpage'] = 'Next page';
-$string['pluginname'] = 'CourseFiles';
-$string['privacy_metadata'] = 'Files remain in Moodle storage. CourseFiles provenance and action data are owned by local_coursefiles.';
+$string['pluginname'] = 'FileBank';
+$string['privacy_metadata'] = 'Files remain in Moodle storage. FileBank provenance and action data are owned by local_filebank.';
 $string['profile'] = 'Relationship profile';
 $string['resource'] = 'File resource';
 $string['s'] = 'Filename';

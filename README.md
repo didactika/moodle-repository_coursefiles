@@ -1,29 +1,29 @@
 <div align="center">
 
-<img src="pix/icon.svg" width="96" alt="CourseFiles icon">
+<img src="pix/icon.svg" width="96" alt="FileBank icon">
 
-# CourseFiles for Moodle — Repository
+# FileBank for Moodle — Repository
 
 *Select several course files and folders inside Moodle’s file picker*
 
-[![Release](https://img.shields.io/github/v/release/didactika/moodle-repository_coursefiles?style=flat-square)](https://github.com/didactika/moodle-repository_coursefiles/releases)
+[![Release](https://img.shields.io/github/v/release/didactika/moodle-repository_filebank?style=flat-square)](https://github.com/didactika/moodle-repository_filebank/releases)
 [![Moodle](https://img.shields.io/badge/Moodle-4.0%E2%80%935.2-f98012?style=flat-square&logo=moodle&logoColor=white)](https://moodle.org)
 [![PHP](https://img.shields.io/badge/PHP-8.1+-777bb4?style=flat-square&logo=php&logoColor=white)](https://www.php.net)
 [![License](https://img.shields.io/badge/License-GPL_v3-blue?style=flat-square)](LICENSE)
-[![CI](https://github.com/didactika/moodle-repository_coursefiles/actions/workflows/ci.yml/badge.svg?branch=MOODLE_400_STABLE)](https://github.com/didactika/moodle-repository_coursefiles/actions/workflows/ci.yml)
+[![CI](https://github.com/didactika/moodle-repository_filebank/actions/workflows/ci.yml/badge.svg?branch=MOODLE_400_STABLE)](https://github.com/didactika/moodle-repository_filebank/actions/workflows/ci.yml)
 
 [Overview](#overview) · [Installation](#installation) · [Usage](#usage) · [Configuration](#configuration) · [Troubleshooting](#troubleshooting)
 
 </div>
 
-CourseFiles (`repository_coursefiles`) exposes the CourseFiles catalog through Moodle’s native file picker, with recursive folder and file selection.
+FileBank (`repository_filebank`) exposes the FileBank catalog through Moodle’s native file picker, with recursive folder and file selection.
 
 > [!IMPORTANT]
-> Install both [CourseFiles local](https://github.com/didactika/moodle-local_coursefiles) and [CourseFiles repository](https://github.com/didactika/moodle-repository_coursefiles) from the same maintenance line. The standalone MultiPicker repository is a separate plugin.
+> Install both [FileBank local](https://github.com/didactika/moodle-local_filebank) and [FileBank repository](https://github.com/didactika/moodle-repository_filebank) from the same maintenance line. The standalone MultiPicker repository is a separate plugin.
 
 ## Overview
 
-The repository component is the native picker entry for local_coursefiles. It uses the configured repository name, native Moodle icons and the owning form’s permissions and limits. The local companion provides the browser and transfer services; this repository does not duplicate them.
+The repository component is the native picker entry for local_filebank. It uses the configured repository name, native Moodle icons and the owning form’s permissions and limits. The local companion provides the browser and transfer services; this repository does not duplicate them.
 
 ## Features
 
@@ -43,13 +43,13 @@ The repository component is the native picker entry for local_coursefiles. It us
 | Maintenance line | MOODLE_400_STABLE |
 | Release / maturity | 4.5.0 / stable |
 | PHP and database | Moodle’s requirements for the selected release; local checks include Moodle 4.0/PHP 8.0 and Moodle 4.5/PHP 8.3 with PostgreSQL 17. |
-| Companion | [local_coursefiles](https://github.com/didactika/moodle-local_coursefiles/tree/MOODLE_400_STABLE) from the same maintenance line. |
+| Companion | [local_filebank](https://github.com/didactika/moodle-local_filebank/tree/MOODLE_400_STABLE) from the same maintenance line. |
 
 The shared AMD/Mustache distribution targets Moodle 4.0–5.2 with PHP 8.0 or newer, subject to each core release’s PHP requirements. Moodle 5.3 has a separate TypeScript/ESM distribution on main. The declared range is validated by CI; a supported range is not evidence that every matrix job has passed.
 
 ## Installation
 
-Install the local companion first, then the repository component. Download the reviewed release ZIP and use Site administration → Plugins → Install plugins, or copy this repository into **repository/coursefiles** beneath the actual Moodle application directory. Moodle 5.3’s checked layout places that directory beneath public/.
+Install the local companion first, then the repository component. Download the reviewed release ZIP and use Site administration → Plugins → Install plugins, or copy this repository into **repository/filebank** beneath the actual Moodle application directory. Moodle 5.3’s checked layout places that directory beneath public/.
 
 Run the administrator upgrade screen or the native CLI upgrade:
 
@@ -77,7 +77,7 @@ Strict author protection refuses workflows where later native author changes can
 
 Detailed explanations, the RUP UML catalogue, rendered diagrams and the exact validation matrix are maintained outside this plugin repository in the services workspace:
 
-`projects/docs/in-progress/suite-coursebridge/moodle-repository_coursefiles/`
+`projects/docs/in-progress/suite-filebank/moodle-repository_filebank/`
 
 That local collection covers both maintenance lines and is not published online. This README, [CHANGELOG](CHANGELOG.md) and [LICENSE](LICENSE) remain in each distribution. The package ships English language strings only; Moodle language packs can provide translations.
 
@@ -89,7 +89,7 @@ Session-bound scopes, capabilities, live publication checks and native draft own
 
 ## Support and contributions
 
-Report reproducible issues through [GitHub Issues](https://github.com/didactika/moodle-repository_coursefiles/issues), including the Moodle version, plugin release and steps without private data. Submit changes against the correct maintenance line and keep companion contracts aligned. Review [the changelog](CHANGELOG.md) and the documented test evidence before upgrading.
+Report reproducible issues through [GitHub Issues](https://github.com/didactika/moodle-repository_filebank/issues), including the Moodle version, plugin release and steps without private data. Submit changes against the correct maintenance line and keep companion contracts aligned. Review [the changelog](CHANGELOG.md) and the documented test evidence before upgrading.
 
 ## License
 
@@ -107,11 +107,11 @@ Licensed under the GNU General Public License v3 or later. See [LICENSE](LICENSE
 
 ## Existing MultiPicker installations
 
-Back up the database and plugin directories. Place CourseFiles in `local/coursefiles` and `repository/coursefiles`, then inspect and apply the metadata adoption:
+Back up the database and plugin directories. Place FileBank in `local/filebank` and `repository/filebank`, then inspect and apply the metadata adoption:
 
 ```bash
-php local/coursefiles/cli/adopt_multipicker.php
-php local/coursefiles/cli/adopt_multipicker.php --execute
+php local/filebank/cli/adopt_multipicker.php
+php local/filebank/cli/adopt_multipicker.php --execute
 # Move the retired local/multipicker and repository/multipicker directories outside Moodle.
 php admin/cli/upgrade.php --non-interactive
 ```

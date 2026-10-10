@@ -169,10 +169,10 @@ jobs:
             *) echo "Unsupported distribution"; exit 1 ;;
           esac
           candidate="$COMPANION_PR_HEAD"
-          if [ -n "$candidate" ] && git ls-remote --exit-code --heads https://github.com/didactika/moodle-local_coursefiles.git "refs/heads/$candidate" >/dev/null 2>&1; then
+          if [ -n "$candidate" ] && git ls-remote --exit-code --heads https://github.com/didactika/moodle-local_filebank.git "refs/heads/$candidate" >/dev/null 2>&1; then
             dependency="$candidate"
           fi
-          moodle-plugin-ci add-plugin --branch="$dependency" didactika/moodle-local_coursefiles
+          moodle-plugin-ci add-plugin --branch="$dependency" didactika/moodle-local_filebank
 
       - name: Install moodle-plugin-ci
         run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1

@@ -17,13 +17,13 @@
 /**
  * Native picker request filters.
  *
- * @package repository_coursefiles
+ * @package repository_filebank
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace repository_coursefiles\local\picker;
+namespace repository_filebank\local\picker;
 
 /**
  * Reads supported native request controls.
