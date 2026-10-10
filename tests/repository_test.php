@@ -27,7 +27,9 @@ namespace repository_multipicker;
 /**
  * Exercises the real core repository/draft contract.
  *
+ * @covers \repository_multipicker
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\repository_multipicker::class)]
 final class repository_test extends \advanced_testcase {
     /**
      * A reviewed folder is transferred through the native repository as a bounded batch.

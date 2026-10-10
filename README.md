@@ -25,6 +25,7 @@ The target context comes from the repository instance. System/private-user uploa
 - [UC01 search](docs/use-cases/uc01-search-materials.md) and [UC02 attach](docs/use-cases/uc02-attach-material.md).
 - [UML sources and previews](docs/diagrams/README.md).
 - [Development checks](CONTRIBUTING.md).
+- [Native builds, CI and packaging](docs/07-development-and-packaging.md).
 
 Version: **alpha**. This maintenance distribution targets Moodle 5.3; Moodle 4.5 uses its separate distribution. Initial source author/licence is preserved; strict copying is refused because later native author edits cannot be prevented by this package. Editable-with-provenance policy allows later native changes.
 
