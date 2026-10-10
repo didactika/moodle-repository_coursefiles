@@ -10,7 +10,7 @@ Install at `repository/multipicker`. This plugin requires **local_multipicker** 
 
 Install local_multipicker first, install this package through Moodle's plugin upgrade procedure and enable **Materials from related courses** under Site administration → Plugins → Repositories → Manage repositories.
 
-Press **Import materials** beside a supported native Folder/File filemanager for visual multiple selection inside the picker. Other course editing filepicker controls retain individual selection. Filter by profile, file name, edition, course shortname, source activity and file type. Identical content appears once with its permitted origins. Choose an exact source declaration to copy into the native draft.
+Open the native **Add files** action and choose **MultiPicker**. Supported Folder/File filemanagers and native Tiny Link editors expose visual multiple selection inside the picker; unregistered controls retain their ordinary individual selection. Filter by profile, file name, edition, course shortname, source activity and file type. Identical content appears once with its permitted origins. Choose an exact source declaration to copy into the native draft.
 
 The target context comes from the repository instance. System/private-user upload contexts are rejected. The native control retains its allowed file types and size limits.
 
@@ -26,6 +26,8 @@ The target context comes from the repository instance. System/private-user uploa
 - [UML sources and previews](docs/diagrams/README.md).
 - [Development checks](CONTRIBUTING.md).
 
-Version: **alpha**. This maintenance distribution targets Moodle 5.3; Moodle 4.5 uses the separate Moodle 4.5 distribution. Initial source author/licence is preserved; strict copying is refused because later native author edits cannot be prevented by this package. Editable-with-provenance policy allows later native changes.
+Version: **alpha**. This maintenance distribution targets Moodle 5.3; Moodle 4.5 uses its separate distribution. Initial source author/licence is preserved; strict copying is refused because later native author edits cannot be prevented by this package. Editable-with-provenance policy allows later native changes.
 
 The native picker supplies the dialog and file presentation; the plugin's search fields use a theme-overridable Mustache template. The local dependency supplies the native chooser AMD adapter; this repository owns no frontend bundle. License: GPL v3 or later.
+
+Folder checks select actual descendant files recursively. The local browser provides partial parent checks, fixed filters/actions, result placeholders and resulting-file tree review with native pencil rename dialogs. Both plugins use the same supplied plugin icon; native control icons come from Moodle. Local dependency: 2026100905.

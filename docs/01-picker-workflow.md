@@ -19,3 +19,7 @@ Unregistered native upload controls retain Moodle's ordinary single-file listing
 ![Attachment conversation](diagrams/use-case-details/uc02-attach-material.svg)
 
 The local plugin resolves author policy for source and destination. Strict locks refuse unsupported later native metadata protection. Editable-with-provenance preserves initial author/licence in history, including when the client submits another author. Integration covers registered native Repository API controls, not arbitrary custom uploaders or backup importers.
+
+Folder choices resolve real descendant file selections. Partial selection is visible on parent folders and children retain their checks while navigating. Review allows changing destination filenames and removing one or several files before a fresh server approval. Only result elements scroll; header/footer stay fixed. This behavior belongs to local_multipicker and the repository transfers the reviewed descriptor through Moodle's native download contract.
+
+The embedded heading uses the actual native repository instance name. Select all includes all matching pages, subject to the native limits. Filters remain enabled and retain their DOM/focus while only results load. Review filenames are plain text; native pencil actions open Save/Cancel rename dialogs.
