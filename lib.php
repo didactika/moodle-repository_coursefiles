@@ -128,7 +128,8 @@ class repository_multipicker extends repository {
             $profileid,
             $filters,
             $state['after'] ?? '',
-            20
+            20,
+            optional_param('itemid', 0, PARAM_INT)
         );
         $listing = ['dynload' => true, 'nologin' => true, 'nosearch' => false,
             'list' => [], 'path' => [['name' => $this->get_name(), 'path' => '']]];
