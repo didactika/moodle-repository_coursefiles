@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Retain configured repository instances when adopting the MultiPicker name.
+ * Retain configured repository instances when adopting the CourseFiles name.
  *
- * @package repository_multipicker
+ * @package repository_coursefiles
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,21 +28,21 @@
  * Reuse the old type ID so repository instances and file references remain valid.
 
  */
-function xmldb_repository_multipicker_install(): void {
+function xmldb_repository_coursefiles_install(): void {
     global $DB;
     $legacy = $DB->get_record('repository', ['type' => 'coursebridge']);
     if (!$legacy) {
         return;
     }
-    if ($DB->record_exists('repository', ['type' => 'multipicker'])) {
+    if ($DB->record_exists('repository', ['type' => 'coursefiles'])) {
         throw new coding_exception('Both repository types exist; resolve the duplicate before importing legacy instances.');
     }
     unset_config('version', 'repository_coursebridge');
-    $legacy->type = 'multipicker';
+    $legacy->type = 'coursefiles';
     $DB->update_record('repository', $legacy);
     foreach ($DB->get_records('config_plugins', ['plugin' => 'repository_coursebridge']) as $setting) {
         if ($setting->name !== 'version') {
-            set_config($setting->name, $setting->value, 'repository_multipicker');
+            set_config($setting->name, $setting->value, 'repository_coursefiles');
         }
     }
 }
