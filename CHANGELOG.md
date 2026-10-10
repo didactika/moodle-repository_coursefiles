@@ -8,3 +8,4 @@
 - Profile version comparison/restoration and version-preserving export/import, with bounded retention.
 - Automatically cancelled empty migrations and deletion of inactive migration history.
 - Bounded picker filters, native selection capacity, aligned two-line cards and compact selectable review rows.
+- Shared native Back actions and responsive local administration components.

@@ -11,31 +11,31 @@
     </details>
     <div class="row d-flex float-none mx-0">
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-profile">{{#str}}profile, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-profile">{{#str}}profile, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbprofile" id="{{id}}-profile">{{#profiles}}
                 <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
             {{/profiles}}</select>
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-search">{{#str}}s, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-search">{{#str}}s, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="s" id="{{id}}-search" type="search">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-edition">{{#str}}cbedition, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-edition">{{#str}}cbedition, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="cbedition" id="{{id}}-edition">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-course">{{#str}}cbshortname, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-course">{{#str}}cbshortname, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="cbshortname" id="{{id}}-course">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-module">{{#str}}cbmodule, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-module">{{#str}}cbmodule, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbmodule" id="{{id}}-module">{{#modules}}
                 <option value="{{value}}">{{label}}</option>
             {{/modules}}</select>
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-type">{{#str}}cbmime, repository_multipicker{{/str}}</label>
+            <label for="{{id}}-type">{{#str}}cbmime, repository_multipicker{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbmime" id="{{id}}-type">{{#filetypes}}
                 <option value="{{value}}">{{label}}</option>
             {{/filetypes}}</select>

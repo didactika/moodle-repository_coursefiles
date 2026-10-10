@@ -7,3 +7,5 @@ CI installs didactika/moodle-local_multipicker before this repository plugin. Te
 Release publication is manual. GitHub creation and pushes do not automatically create a release. Distinct maintenance lines must use distinct release numbers. GitHub workflows still require an actual remote run; the [native validation record](06-native-picker-tests.md) describes the local Docker checks.
 
 The repository relies on the local plugin's core-built adapter and does not duplicate its frontend. See [the local build contract](https://github.com/didactika/moodle-local_multipicker/blob/main/docs/24-development-and-packaging.md). Install this package in repository/multipicker and install its dependency in local/multipicker.
+
+Native repository coverage passes on both exact targets: three scenarios and 37 steps per target, including public-source filtering, deduplication and native import/save. The shared local companion also passes its administration, pagination and picker/editor batches; the full current record is maintained in its validation documentation.

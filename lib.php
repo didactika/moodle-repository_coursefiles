@@ -189,6 +189,7 @@ class repository_multipicker extends repository {
         }
         return $OUTPUT->render_from_template('repository_multipicker/local/picker/search_form', [
             'id' => 'multipicker-search-' . $this->id,
+            'filterhelp' => $OUTPUT->help_icon('listfilters', 'local_multipicker'),
             'profiles' => display::options($options, (string)$this->profileid()),
             'filetypes' => display::options(display::filetypes(), ''),
             'modules' => display::options([
