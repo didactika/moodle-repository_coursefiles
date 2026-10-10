@@ -101,6 +101,7 @@ class repository_multipicker extends repository {
             sesskey()
         );
         if ($scope !== '' && in_array(optional_param('env', '', PARAM_ALPHA), ['filemanager', 'editor'], true)) {
+            \local_multipicker\local\selection\draft_scope::select_repository($scope, $this->get_name(), sesskey());
             \local_multipicker\local\selection\draft_scope::select_picker(
                 $scope,
                 (array)($this->options['mimetypes'] ?? ['*']),
@@ -130,7 +131,7 @@ class repository_multipicker extends repository {
             20
         );
         $listing = ['dynload' => true, 'nologin' => true, 'nosearch' => false,
-            'list' => [], 'path' => [['name' => get_string('pluginname', 'repository_multipicker'), 'path' => '']]];
+            'list' => [], 'path' => [['name' => $this->get_name(), 'path' => '']]];
         foreach ($result['assets'] as $asset) {
             if (!empty($state['asset']) && $state['asset'] !== $asset['contenthash']) {
                 continue;
