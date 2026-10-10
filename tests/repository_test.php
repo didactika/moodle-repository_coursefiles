@@ -27,6 +27,7 @@ namespace repository_multipicker;
 /**
  * Exercises the real core repository/draft contract.
  *
+ * @covers \repository_multipicker
  */
 final class repository_test extends \advanced_testcase {
     /**
