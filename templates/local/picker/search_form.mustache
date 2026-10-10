@@ -2,43 +2,43 @@
     @copyright 2026 Didactika.org
     @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
     @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-    @template repository_coursefiles/local/picker/search_form
+    @template repository_filebank/local/picker/search_form
     Native picker search fields and submit button; core owns the surrounding form.
     Context: id, profiles, filetypes, modules.
     Example context (json): {"id":"cb-repository-1","profiles":[],"filetypes":[],"modules":[]}
 }}
-<div class="fp-def-search coursefiles-search w-100 float-none mx-0" data-region="coursefiles-search">
+<div class="fp-def-search filebank-search w-100 float-none mx-0" data-region="filebank-search">
     <details class="mb-3">
-        <summary class="text-primary">{{#str}}bulkheading, repository_coursefiles{{/str}}</summary>
-        <p class="text-muted mt-2">{{#str}}bulkhelp, repository_coursefiles{{/str}}</p>
+        <summary class="text-primary">{{#str}}bulkheading, repository_filebank{{/str}}</summary>
+        <p class="text-muted mt-2">{{#str}}bulkhelp, repository_filebank{{/str}}</p>
     </details>
     <div class="row d-flex float-none mx-0">
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-profile">{{#str}}profile, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-profile">{{#str}}profile, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbprofile" id="{{id}}-profile">{{#profiles}}
                 <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
             {{/profiles}}</select>
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-search">{{#str}}s, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-search">{{#str}}s, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="s" id="{{id}}-search" type="search">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-edition">{{#str}}cbedition, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-edition">{{#str}}cbedition, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="cbedition" id="{{id}}-edition">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-course">{{#str}}cbshortname, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-course">{{#str}}cbshortname, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <input class="form-control" name="cbshortname" id="{{id}}-course">
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-module">{{#str}}cbmodule, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-module">{{#str}}cbmodule, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbmodule" id="{{id}}-module">{{#modules}}
                 <option value="{{value}}">{{label}}</option>
             {{/modules}}</select>
         </div>
         <div class="col-md-6 mb-3 mx-0">
-            <label for="{{id}}-type">{{#str}}cbmime, repository_coursefiles{{/str}} {{{filterhelp}}}</label>
+            <label for="{{id}}-type">{{#str}}cbmime, repository_filebank{{/str}} {{{filterhelp}}}</label>
             <select class="form-control" name="cbmime" id="{{id}}-type">{{#filetypes}}
                 <option value="{{value}}">{{label}}</option>
             {{/filetypes}}</select>
