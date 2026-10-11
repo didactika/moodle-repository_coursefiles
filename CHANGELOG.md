@@ -7,3 +7,4 @@
 - Native public-file selection in cards, list and lazy tree views with recursive folders and destination limits.
 - Reviewed background migrations, conflict choices, original authorship records and configurable history retention.
 - Organized AMD feature modules and compatibility adapters for legacy native APIs.
+- Generate repository test profiles without depending on documentation examples in the local plugin package.

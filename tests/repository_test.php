@@ -247,7 +247,7 @@ final class repository_test extends \advanced_testcase {
         $this->resetAfterTest();
         $this->setAdminUser();
         require_once($CFG->dirroot . '/repository/filebank/lib.php');
-        $config = json_decode(file_get_contents($CFG->dirroot . '/local/filebank/examples/institutional-profile.json'), true);
+        $config = $this->getDataGenerator()->get_plugin_generator('local_filebank')->create_profile_config();
         $profileid = \local_filebank\local\profile\profiles::save(json_encode($config));
         $uuid = '550e8400-e29b-41d4-a716-446655440000';
         $source = $this->getDataGenerator()->create_course(['idnumber' => $uuid . '||MATH||2025']);
