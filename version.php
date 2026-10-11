@@ -25,9 +25,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'repository_filebank';
-$plugin->version = 2026101100;
+$plugin->version = 2026101102;
 $plugin->requires = 2022041900;
-$plugin->dependencies = ['local_filebank' => 2026101100];
+$plugin->dependencies = ['local_filebank' => 2026101102];
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = '4.5.0';
+$plugin->release = '4.0.0';
 $plugin->supported = [400, 502];
