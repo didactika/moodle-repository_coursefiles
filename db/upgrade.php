@@ -15,21 +15,20 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Upgrade an adopted repository instance without losing its configured name.
+ * Database upgrade entry point for the initial public distribution.
  *
  * @package repository_filebank
  * @copyright 2026 Didactika.org
  * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
  * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 /**
- * Update the repository distribution version.
+ * No schema upgrades are required before the first public release.
+ *
  * @param int $oldversion Installed version.
- * @return bool Completed.
+ * @return bool Upgrade completed.
  */
 function xmldb_repository_filebank_upgrade(int $oldversion): bool {
-    if ($oldversion < 2026101100) {
-        upgrade_plugin_savepoint(true, 2026101100, 'repository', 'filebank');
-    }
     return true;
 }
