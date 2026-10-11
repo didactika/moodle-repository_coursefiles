@@ -42,8 +42,7 @@ final class repository_filebank_generator extends component_generator_base {
         $previoususer = $USER;
         $this->set_user(get_admin());
         try {
-            $example = $CFG->dirroot . '/local/filebank/examples/institutional-profile.json';
-            $config = json_decode(file_get_contents($example), true);
+            $config = $this->datagenerator->get_plugin_generator('local_filebank')->create_profile_config();
             $config['name'] = $record['name'];
             $config['publication']['mode'] = 'explicit-family-publication';
             $profileid = profiles::save(json_encode($config));
