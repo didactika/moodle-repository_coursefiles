@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,19 +17,20 @@
 /**
  * Published course edition fixtures for browser acceptance.
  *
- * @package repository_multipicker
- * @copyright 2026 MultiPicker contributors
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package repository_filebank
+ * @copyright 2026 Didactika.org
+ * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_multipicker\local\profile\profiles;
-use local_multipicker\local\catalog\indexer;
-use local_multipicker\local\catalog\material_source;
+use local_filebank\local\profile\profiles;
+use local_filebank\local\catalog\indexer;
+use local_filebank\local\catalog\material_source;
 
 /**
  * Native file picker fixtures, isolated by Moodle's test environment.
  */
-final class repository_multipicker_generator extends component_generator_base {
+final class repository_filebank_generator extends component_generator_base {
     /**
      * Create published editions and a teacher enrolled only in the destination.
      *
@@ -37,21 +38,20 @@ final class repository_multipicker_generator extends component_generator_base {
      * @return array Fixture identifiers.
      */
     public function create_picker_fixture(array $record): array {
-        global $CFG, $DB, $USER;
+        global $CFG, $USER;
         $previoususer = $USER;
         $this->set_user(get_admin());
         try {
-            $example = $CFG->dirroot . '/local/multipicker/examples/institutional-profile.json';
-            $config = json_decode(file_get_contents($example), true);
+            $config = $this->datagenerator->get_plugin_generator('local_filebank')->create_profile_config();
             $config['name'] = $record['name'];
             $config['publication']['mode'] = 'explicit-family-publication';
             $profileid = profiles::save(json_encode($config));
-            set_config('author_policy', 'editable_with_provenance', 'local_multipicker');
+            set_config('author_policy', 'editable_with_provenance', 'local_filebank');
             $uuid = \core\uuid::generate();
             $courses = [];
             foreach ([2024, 2025, 2026] as $edition) {
                 $courses[$edition] = $this->datagenerator->create_course([
-                    'fullname' => 'MultiPicker ' . $edition, 'shortname' => 'CB' . $edition,
+                    'fullname' => 'FileBank ' . $edition, 'shortname' => 'CB' . $edition,
                     'idnumber' => $uuid . '||CB||' . $edition,
                 ]);
                 $folder = $this->datagenerator->create_module('folder', [
@@ -89,8 +89,8 @@ final class repository_multipicker_generator extends component_generator_base {
             }
             $teacher = $this->datagenerator->create_user(['username' => 'cbteacher', 'password' => 'cbteacher']);
             $this->datagenerator->enrol_user($teacher->id, $courses[2026]->id, 'editingteacher');
-            require_once($CFG->dirroot . '/repository/multipicker/lib.php');
-            $type = new repository_type('multipicker');
+            require_once($CFG->dirroot . '/repository/filebank/lib.php');
+            $type = new repository_type('filebank');
             $type->create(false);
             return ['targetcmid' => $targetcmid, 'targetcourse' => $courses[2026]->id, 'profileid' => $profileid,
                 'teacherid' => $teacher->id, 'wwwroot' => $CFG->wwwroot];

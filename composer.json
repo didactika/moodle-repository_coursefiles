@@ -1,5 +1,5 @@
 {
-  "name": "multipicker/moodle-repository_multipicker",
+  "name": "didactika/moodle-repository_filebank",
   "description": "Configurable Moodle teaching-material reuse",
   "type": "moodle-repository",
   "license": "GPL-3.0-or-later",

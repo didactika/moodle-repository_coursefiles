@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,9 +17,10 @@
 /**
  * Repository language strings.
  *
- * @package repository_multipicker
- * @copyright 2026 MultiPicker contributors
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package repository_filebank
+ * @copyright 2026 Didactika.org
+ * @author Hector Arrechea <hectorlazaroarrechea@gmail.com>
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,13 +30,13 @@ $string['cbedition'] = 'Edition';
 $string['cbmime'] = 'File type';
 $string['cbmodule'] = 'Source module';
 $string['cbshortname'] = 'Course shortname';
-$string['configplugin'] = 'MultiPicker repository configuration';
+$string['configplugin'] = 'FileBank repository configuration';
+$string['filebank'] = 'Related course materials';
+$string['filebank:view'] = 'Use the FileBank repository';
 $string['folder'] = 'Folder';
-$string['multipicker'] = 'Related course materials';
-$string['multipicker:view'] = 'Use the MultiPicker repository';
 $string['nextpage'] = 'Next page';
-$string['pluginname'] = 'MultiPicker';
-$string['privacy_metadata'] = 'Files remain in Moodle storage. MultiPicker provenance and action data are owned by local_multipicker.';
+$string['pluginname'] = 'FileBank';
+$string['privacy_metadata'] = 'Files remain in Moodle storage. FileBank provenance and action data are owned by local_filebank.';
 $string['profile'] = 'Relationship profile';
 $string['resource'] = 'File resource';
 $string['s'] = 'Filename';
