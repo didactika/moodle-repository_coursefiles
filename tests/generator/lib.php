@@ -38,7 +38,7 @@ final class repository_filebank_generator extends component_generator_base {
      * @return array Fixture identifiers.
      */
     public function create_picker_fixture(array $record): array {
-        global $CFG, $DB, $USER;
+        global $CFG, $USER;
         $previoususer = $USER;
         $this->set_user(get_admin());
         try {
